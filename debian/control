@@ -8,10 +8,8 @@ Build-Depends:
  debhelper-compat (= 13),
  devscripts,
  dh-exec,
- openssl,
  git,
- pkgconf,
- libwolfssl-dev
+ pkgconf
 
 Package: libwolfprov
 Architecture: any
