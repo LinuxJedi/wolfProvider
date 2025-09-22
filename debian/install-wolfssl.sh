@@ -181,8 +181,7 @@ AC_CONFIG_FILES([debian/rules],[chmod +x debian/rules])' configure.ac
             -DWC_RSA_DIRECT \
             -DWC_RSA_NO_PADDING \
             -DACVP_VECTOR_TESTING \
-            -DWOLFSSL_ECDSA_SET_K" \
-            LIBS="-lm"
+            -DWOLFSSL_ECDSA_SET_K"
 
     # Build Debian packages
     echo "Building Debian packages..."

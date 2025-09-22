@@ -33,7 +33,9 @@ jobs:
       # TODO: create a docker with these pre-installed
       - name: Install common dependencies
         run: |
-          apt-get update && apt-get install -y --no-install-recommends \
+          apt-get update && \
+          apt-get dist-upgrade -y && \
+          apt-get install -y --no-install-recommends \
             build-essential \
             ccache \
             devscripts \
@@ -55,31 +57,31 @@ jobs:
             xxd
 
       # Experimental: use ccache
-      - name: Setup ccache
-        uses: hendrikmuhs/ccache-action@v1.2
-        id: cc
-        with:
-          create-symlink: true
+      #- name: Setup ccache
+      #  uses: hendrikmuhs/ccache-action@v1.2
+      #  id: cc
+      #  with:
+      #    create-symlink: true
 
-      - name: Setup ccache environment variables
-        run: |
-          echo CC=ccache\ gcc >> "$GITHUB_ENV"
-          echo CXX=ccache\ g++ >> "$GITHUB_ENV"
-          echo CCACHE_BASEDIR=${GITHUB_WORKSPACE} >> "$GITHUB_ENV"
-          echo CCACHE_NOHASHDIR=true >> "$GITHUB_ENV"
-          echo CCACHE_COMPILERCHECK=content >> "$GITHUB_ENV"
-          echo "CCACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/ccache" >> "$GITHUB_ENV"
-          mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/ccache"
+      #- name: Setup ccache environment variables
+      #  run: |
+      #    echo CC=ccache\ gcc >> "$GITHUB_ENV"
+      #    echo CXX=ccache\ g++ >> "$GITHUB_ENV"
+      #    echo CCACHE_BASEDIR=${GITHUB_WORKSPACE} >> "$GITHUB_ENV"
+      #    echo CCACHE_NOHASHDIR=true >> "$GITHUB_ENV"
+      #    echo CCACHE_COMPILERCHECK=content >> "$GITHUB_ENV"
+      #    echo "CCACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/ccache" >> "$GITHUB_ENV"
+      #    mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/ccache"
 
-      - name: Sanity check ccache routing
-        run: |
-          set -x
-          which -a gcc || true
-          gcc --version | head -1
-          ccache --zero-stats
-          printf 'int main(){return 0;}\n' > t.c
-          $CC -c t.c
-          ccache -s
+      #- name: Sanity check ccache routing
+      #  run: |
+      #    set -x
+      #    which -a gcc || true
+      #    gcc --version | head -1
+      #    ccache --zero-stats
+      #    printf 'int main(){return 0;}\n' > t.c
+      #    $CC -c t.c
+      #    ccache -s
 
       - name: Checkout wolfProvider
         uses: actions/checkout@v4
