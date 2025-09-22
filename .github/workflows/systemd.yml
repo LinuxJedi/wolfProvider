@@ -70,7 +70,7 @@ jobs:
           ls -la ${{ env.WOLFPROV_PACKAGES_PATH }}
 
           apt install --reinstall -y \
-            ${{ env.WOLFSSL_PACKAGES_PATH }}/libwolfssl_*.deb
+            ${{ env.WOLFSSL_PACKAGES_PATH }}/libwolfssl*.deb
 
           apt install --reinstall -y \
             ${{ env.OPENSSL_PACKAGES_PATH }}/openssl_*.deb \
